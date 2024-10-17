@@ -34,7 +34,7 @@ public class InputManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 pos = Input.mousePosition;
-            pos.z = cam.WorldToScreenPoint(Vector3.zero).z;
+            //pos.z = cam.WorldToScreenPoint(Vector3.zero).z;
             InputDownEvent?.Invoke(pos);
             Debug.Log("InputDownEvent");
         }
@@ -42,9 +42,9 @@ public class InputManager : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector3 pos = Input.mousePosition;
-            pos.z = cam.WorldToScreenPoint(Vector3.zero).z;
+            //pos.z = cam.WorldToScreenPoint(Vector3.zero).z;
             InputMoveEvent?.Invoke(pos);
-            Debug.Log("InputMoveEvent");
+            //Debug.Log("InputMoveEvent");
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -60,7 +60,7 @@ public class InputManager : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
             Vector3 pos = touch.position;
-            pos.z = cam.WorldToScreenPoint(Vector3.zero).z;
+            //pos.z = cam.WorldToScreenPoint(Vector3.zero).z;
 
             if (touch.phase == TouchPhase.Began)
             {

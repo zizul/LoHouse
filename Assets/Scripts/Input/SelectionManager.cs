@@ -32,6 +32,9 @@ public class SelectionManager : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(screenPosition);
         RaycastHit hit;
 
+        //Debug.DrawRay(cam.transform.position, forward, Color.green);
+        Debug.DrawRay(ray.origin, ray.direction * 20, Color.white, 3);
+
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider != null && hit.collider.CompareTag(selectableTag))
