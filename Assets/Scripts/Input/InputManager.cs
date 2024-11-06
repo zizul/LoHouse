@@ -33,10 +33,10 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("InputDownEvent");
             Vector3 pos = Input.mousePosition;
             //pos.z = cam.WorldToScreenPoint(Vector3.zero).z;
             InputDownEvent?.Invoke(pos);
-            Debug.Log("InputDownEvent");
         }
 
         if (Input.GetMouseButton(0))
@@ -49,8 +49,8 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            InputUpEvent?.Invoke();
             Debug.Log("InputUpEvent");
+            InputUpEvent?.Invoke();
         }
     }
 

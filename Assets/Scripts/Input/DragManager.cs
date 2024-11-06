@@ -9,14 +9,14 @@ public class DragHandler : MonoBehaviour
 
     void OnEnable()
     {
-        SelectionManager.ObjectSelectedEvent += OnObjectSelected;
+        SelectionManager.ObjectSelectedEvent += StartDragging;
         InputManager.InputMoveEvent += OnInputMove;
         InputManager.InputUpEvent += OnInputUp;
     }
 
     void OnDisable()
     {
-        SelectionManager.ObjectSelectedEvent -= OnObjectSelected;
+        SelectionManager.ObjectSelectedEvent -= StartDragging;
         InputManager.InputMoveEvent -= OnInputMove;
         InputManager.InputUpEvent -= OnInputUp;
     }
@@ -26,21 +26,27 @@ public class DragHandler : MonoBehaviour
         cam = Camera.main;
     }
 
-    void OnObjectSelected(GameObject obj)
+    void StartDragging(GameObject obj)
     {
         selectedObject = obj;
         isDragging = true;
 
         // Calculate offset from the click point to the object position
-        Vector3 screenPos = cam.WorldToScreenPoint(selectedObject.transform.position);
-        offset = cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, screenPos.z)) - selectedObject.transform.position;
+        //Vector3 screenPos = cam.WorldToScreenPoint(selectedObject.transform.position);
+        //offset = cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, screenPos.z)) - selectedObject.transform.position;
+
+        Vector3 clickPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.WorldToScreenPoint(obj.transform.position).z);
+        offset = obj.transform.position - cam.ScreenToWorldPoint(clickPoint);
     }
 
     void OnInputMove(Vector3 screenPosition)
     {
         if (isDragging && selectedObject != null)
         {
-            Vector3 worldPos = cam.ScreenToWorldPoint(screenPosition) - offset;
+            //Vector3 worldPos = cam.ScreenToWorldPoint(screenPosition) - offset;
+            //selectedObject.transform.position = worldPos;
+
+            Vector3 worldPos = cam.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, cam.WorldToScreenPoint(selectedObject.transform.position).z)) + offset;
             selectedObject.transform.position = worldPos;
         }
     }
