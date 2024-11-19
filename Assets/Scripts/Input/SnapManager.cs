@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+
 public class SnapManager : MonoBehaviour
 {
     public List<GameObject> anchorPoints = new List<GameObject>();
@@ -10,6 +12,7 @@ public class SnapManager : MonoBehaviour
     {
         SelectionManager.ObjectSelectedEvent += OnObjectSelected;
         InputManager.InputUpEvent += OnInputUp;
+        anchorPoints = GameObject.FindGameObjectsWithTag("CardAnchor").ToList();
     }
 
     void OnDisable()
