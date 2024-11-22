@@ -1,14 +1,20 @@
+using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class InputManager : MonoBehaviour
 {
     public delegate void OnInputDown(Vector3 position);
     public delegate void OnInputUp();
     public delegate void OnInputMove(Vector3 position);
+    public delegate void KeyInput(KeyCode key);
 
     public static event OnInputDown InputDownEvent;
     public static event OnInputUp InputUpEvent;
     public static event OnInputMove InputMoveEvent;
+
+    public static event KeyInput KeyDownEvent;
+    public static event KeyInput KeyUpEvent;
 
     private Camera cam;
 
@@ -26,6 +32,34 @@ public class InputManager : MonoBehaviour
         else
         {
             HandleMouseInput();
+        }
+
+        HandleKeyboardInput();
+    }
+
+    private void HandleKeyboardInput()
+    {
+        // Keyboard Input
+        if (Input.anyKeyDown)
+        {
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(key))
+                {
+                    KeyDownEvent?.Invoke(key);
+                }
+            }
+        }
+
+        if (Input.anyKey)
+        {
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyUp(key))
+                {
+                    KeyUpEvent?.Invoke(key);
+                }
+            }
         }
     }
 
