@@ -10,7 +10,6 @@ public class CardSpawner : MonoBehaviour
     public GameObject cardPrefab;
     public string texturesDirectory = "Textures";
     public Transform parentTransform;
-    public Vector3 spawnPosition = Vector3.zero;
     public Vector3 spawnScale = Vector3.one;
     public string cardTag = "Card";           // Default tag for spawned cards
     public LayerMask cardLayer = 0;
