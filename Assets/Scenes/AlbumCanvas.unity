@@ -2842,12 +2842,13 @@ MonoBehaviour:
   cardPrefab: {fileID: 919132149155446097, guid: 342558d386735ef41812b6544ea0c4db, type: 3}
   texturesDirectory: Textures/cards
   parentTransform: {fileID: 1675531615}
-  spawnPosition: {x: 0, y: 0, z: 368}
   spawnScale: {x: 100, y: 100, z: 100}
   cardTag: Draggable
   cardLayer:
     serializedVersion: 2
     m_Bits: 32
+  useCustomTagAndLayer: 1
+  addMeshCollider: 1
 --- !u!1 &1526990033 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 342558d386735ef41812b6544ea0c4db, type: 3}
