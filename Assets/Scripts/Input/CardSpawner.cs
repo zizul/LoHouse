@@ -75,7 +75,7 @@ public class CardSpawner : MonoBehaviour
 
     void OnKeyDown(KeyCode key)
     {
-        if (key == KeyCode.S && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
+        if (key == KeyCode.Q && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
             SpawnCard();
         }
