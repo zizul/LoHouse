@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class PopManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PopManager : MonoBehaviour
     private Vector3 originalScale;
     private GameObject selectedObject;
     private Coroutine scaleCoroutine;
+    private int popedSortingOrder;
 
     void OnEnable()
     {
@@ -38,6 +40,12 @@ public class PopManager : MonoBehaviour
             originalScale.z * popScale.z
         );
 
+        if (obj.GetComponentInChildren<SpriteRenderer>() != null)
+        {
+            popedSortingOrder = obj.GetComponentInChildren<SpriteRenderer>().sortingOrder;
+            obj.GetComponentsInChildren<SpriteRenderer>().ToList().ForEach(x => x.sortingOrder = 100);
+        }
+
         // Start scaling up (pop effect)
         scaleCoroutine = StartCoroutine(ScaleObject(selectedObject, targetScale, popSpeed));
     }
@@ -52,6 +60,12 @@ public class PopManager : MonoBehaviour
                 StopCoroutine(scaleCoroutine);
             }
             scaleCoroutine = StartCoroutine(ScaleObject(selectedObject, originalScale, popSpeed));
+
+            if (selectedObject.GetComponentInChildren<SpriteRenderer>() != null)
+            {
+                selectedObject.GetComponentsInChildren<SpriteRenderer>().ToList().ForEach(x => x.sortingOrder = popedSortingOrder);
+            }
+
             selectedObject = null;
         }
     }
