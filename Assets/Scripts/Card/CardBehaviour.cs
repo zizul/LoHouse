@@ -17,7 +17,6 @@ public class CardBehaviour : MonoBehaviour
         //SelectionManager.ObjectSelectedEvent += ScaleUp();
 
         originalScale = transform.localScale;
-        sortingOrder = 0;
     }
 
     public void SetSpriteSortingOrder(int order)

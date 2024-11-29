@@ -36,6 +36,13 @@ public class AlignChildrenOnX : MonoBehaviour
             Transform onlyChild = transform.GetChild(0);
             onlyChild.localPosition = new Vector3(0, arcHeight, 0);
             onlyChild.localRotation = Quaternion.identity;
+
+            CardBehaviour cardBehaviour = onlyChild.gameObject.GetComponent<CardBehaviour>();
+            if (cardBehaviour != null)
+            {
+                cardBehaviour.SetSpriteSortingOrder(1);
+            }
+
             return;
         }
 
@@ -68,7 +75,7 @@ public class AlignChildrenOnX : MonoBehaviour
             CardBehaviour cardBehaviour = child.gameObject.GetComponent<CardBehaviour>();
             if (cardBehaviour != null)
             {
-                cardBehaviour.SetSpriteSortingOrder(i);
+                cardBehaviour.SetSpriteSortingOrder(i+1);
                 cardBehaviour.currentRotation = Quaternion.Euler(0, 0, tiltAngle);
             }
         }
