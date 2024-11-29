@@ -15,7 +15,6 @@ public class SmallOnClick : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnPointerUp(PointerEventData eventData)
     {
-
         transform.localScale = normalScale;
     }
 }

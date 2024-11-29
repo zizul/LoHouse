@@ -92,51 +92,83 @@ public class SpriteCardSpawner : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPosition = parentTransform.transform.position;
-        Quaternion spawnRotation = parentTransform.transform.rotation;
+        // Spawn position and rotation
+        Vector3 spawnPosition = parentTransform.position;
+        Quaternion spawnRotation = parentTransform.rotation;
 
-        // Create the card at the anchor position and rotation
+        // Instantiate the card
         GameObject newCard = Instantiate(cardPrefab, spawnPosition, spawnRotation, parentTransform);
         newCard.transform.localScale = spawnScale;
 
-        // Apply custom tag and layer if enabled
+        // Set custom tag and layer
         if (useCustomTagAndLayer)
         {
-            if (!string.IsNullOrEmpty(cardTag))
-            {
-                try
-                {
-                    newCard.tag = cardTag;
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Failed to set card tag: {e.Message}. Make sure the tag exists in Tags and Layers settings.");
-                }
-            }
-
-            newCard.layer = (int)Mathf.Log(cardLayer.value, 2);
+            SetCustomTagAndLayer(newCard);
         }
 
         // Apply texture
+        ApplyTextureToCard(newCard);
+
+        // Set card name for easier identification
+        newCard.name = GenerateCardName(newCard);
+
+        Debug.Log($"Spawned card in hand: (Current count: {parentTransform.childCount})");
+    }
+
+    void SetCustomTagAndLayer(GameObject card)
+    {
+        if (!string.IsNullOrEmpty(cardTag))
+        {
+            try
+            {
+                card.tag = cardTag;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Failed to set card tag: {e.Message}. Make sure the tag exists in Tags and Layers settings.");
+            }
+        }
+
+        if (cardLayer != 0)
+        {
+            card.layer = (int)Mathf.Log(cardLayer.value, 2);
+        }
+    }
+
+    void ApplyTextureToCard(GameObject card)
+    {
         string textureFile = GetNextTexture();
-        if (File.Exists(textureFile))
+        if (!File.Exists(textureFile))
+        {
+            Debug.LogWarning("Texture file does not exist.");
+            return;
+        }
+
+        try
         {
             byte[] fileData = File.ReadAllBytes(textureFile);
             Texture2D texture = new Texture2D(2, 2);
             texture.LoadImage(fileData);
 
-            //Material newMaterial = new Material(Shader.Find("Sprite-Lit-Default"));
-            //newMaterial.mainTexture = texture;
-            //newCard.GetComponentInChildren<SpriteRenderer>().material.mainTexture = texture;
+            Sprite cardSprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
 
-            //Material newMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-            //newMaterial.mainTexture = texture;
-            newCard.GetComponentInChildren<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            newCard.GetComponentsInChildren<SpriteRenderer>().ToList().ForEach(x => x.sortingOrder = parentTransform.childCount);
-            // Set card name to texture name and anchor for easier identification
-            newCard.name = $"Card_{Path.GetFileNameWithoutExtension(textureFile)}";
+            CardBehaviour bardBehaviour = card.GetComponent<CardBehaviour>();
+            if (card != null)
+            {
+                bardBehaviour.SetCardFrontSprite(cardSprite);
+            }
         }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to apply texture to card: {e.Message}");
+        }
+    }
 
-        Debug.Log($"Spawned card in hand: (Current count: {parentTransform.childCount})");
+    string GenerateCardName(GameObject card)
+    {
+        string textureFile = GetNextTexture();
+        return File.Exists(textureFile)
+            ? $"Card_{Path.GetFileNameWithoutExtension(textureFile)}"
+            : "Card_Unknown";
     }
 }

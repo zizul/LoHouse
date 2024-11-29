@@ -1,7 +1,7 @@
 using UnityEditor.AnimatedValues;
 using UnityEngine;
 
-public class ObjectRotation : MonoBehaviour
+public class Objectotation : MonoBehaviour
 {
     [Header("Rotation Settings")]
     [Tooltip("Speed of rotation in degrees per second")]
@@ -25,40 +25,10 @@ public class ObjectRotation : MonoBehaviour
     {
         // Initialize rotation state based on inspector setting
         isRotating = rotateOnStart;
-
-        // Calculate the true center of the object using its renderer bounds
-        //CalculateObjectCenter();
-    }
-
-    public void CalculateObjectCenter()
-    {
-        // Get all renderers (in case object has multiple parts)
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        if (renderers.Length == 0) return;
-
-        // Calculate bounds that encompass all renderers
-        objectBounds = renderers[0].bounds;
-        for (int i = 1; i < renderers.Length; i++)
-        {
-            objectBounds.Encapsulate(renderers[i].bounds);
-        }
-
-        // Store the center point
-        centerPoint = objectBounds.center;
     }
 
     private void Update()
     {
-        //if (isRotating)
-        //{
-        //    // Calculate rotation direction
-        //    float direction = clockwise ? -1f : 1f;
-        //    float angle = rotationSpeed * direction * Time.deltaTime;
-
-        //    // Rotate around the center point
-        //    transform.RotateAround(centerPoint, Vector3.up, angle);
-        //}
-
         if (isRotating)
         {
             // Calculate rotation direction

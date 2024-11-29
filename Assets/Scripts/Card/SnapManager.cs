@@ -30,7 +30,11 @@ public class SnapManager : MonoBehaviour
     {
         if (selectedObject != null)
         {
-            SnapToClosestAnchor(selectedObject);
+            CardBehaviour card = selectedObject.GetComponent<CardBehaviour>();
+            if (card != null && !card.IsInHand())
+            {
+                SnapToClosestAnchor(selectedObject);
+            }
             selectedObject = null;
         }
     }

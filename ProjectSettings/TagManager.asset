@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Draggable
   - CardAnchor
+  - Hand
   layers:
   - Default
   - TransparentFX

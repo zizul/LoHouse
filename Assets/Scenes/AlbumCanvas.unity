@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popScale: {x: 2, y: 2, z: 2}
   popSpeed: 0.2
+  popMoveOffset: {x: 0, y: 3, z: 0}
 --- !u!1 &54243859
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +866,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 634352506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 236b5aa6412710a47adf9024fa97ac60, type: 3}
+  m_Script: {fileID: 11500000, guid: f1846dd07c25f0742a88bb87603bc9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 2558897346379015805, guid: 560d70fc3f73c9e47b5159b167b267d5, type: 3}
@@ -934,7 +935,7 @@ GameObject:
   - component: {fileID: 708428284}
   m_Layer: 5
   m_Name: Hand
-  m_TagString: Untagged
+  m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -955,7 +956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5, y: -475}
+  m_AnchoredPosition: {x: -5, y: -507.67}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &708428284
@@ -2947,19 +2948,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1501107446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e3e1329f959964d840d2cd15dc39ca, type: 3}
+  m_Script: {fileID: 11500000, guid: f8c5c3f5e6340b644bbfe1a7b3f0fbb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 919132149155446097, guid: 342558d386735ef41812b6544ea0c4db, type: 3}
-  texturesDirectory: Textures/cards
-  parentTransform: {fileID: 1675531615}
-  spawnScale: {x: 100, y: 100, z: 100}
-  cardTag: Draggable
-  cardLayer:
-    serializedVersion: 2
-    m_Bits: 32
-  useCustomTagAndLayer: 1
-  addMeshCollider: 1
 --- !u!1 &1526990033 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 342558d386735ef41812b6544ea0c4db, type: 3}
@@ -3549,6 +3540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5042b7bfaa107439d29848624ddf34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &2035156138 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c6b74de7d7505de4997e5eb441dd862a, type: 3}

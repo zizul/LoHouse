@@ -8,19 +8,26 @@ public class AlignChildrenOnX : MonoBehaviour
     [SerializeField] private float maxTilt = 30f; // Maksymalne przechylenie na osi Z dla du¿ej liczby kart
     [SerializeField] private float minTilt = 5f; // Minimalne przechylenie na osi Z dla ma³ej liczby kart
 
+    private int childCount = 0;
+
     private void Start()
     {
+        childCount = transform.childCount;
         ArrangeInArc();
     }
 
     private void Update()
     {
-        ArrangeInArc();
+        if (childCount != transform.childCount)
+        {
+            ArrangeInArc();
+            Debug.Log("AlignChildrenOnX");
+        }
     }
 
     private void ArrangeInArc()
     {
-        int childCount = transform.childCount;
+        childCount = transform.childCount;
         if (childCount == 0) return;
 
         // Jeœli tylko jedna karta, ustaw j¹ na œrodku
@@ -57,6 +64,13 @@ public class AlignChildrenOnX : MonoBehaviour
             // Ustawienie pozycji i rotacji
             child.localPosition = new Vector3(xPos, yPos, -i);
             child.localRotation = Quaternion.Euler(0, 0, tiltAngle);
+
+            CardBehaviour cardBehaviour = child.gameObject.GetComponent<CardBehaviour>();
+            if (cardBehaviour != null)
+            {
+                cardBehaviour.SetSpriteSortingOrder(i);
+                cardBehaviour.currentRotation = Quaternion.Euler(0, 0, tiltAngle);
+            }
         }
     }
 }
