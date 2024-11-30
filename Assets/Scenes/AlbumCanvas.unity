@@ -166,9 +166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25531d2b12d8ac469cbde8993d2cbb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popScale: {x: 2, y: 2, z: 2}
+  popScale: {x: 1.5, y: 1.5, z: 1.5}
   popSpeed: 0.2
-  popMoveOffset: {x: 0, y: 3, z: 0}
+  popMoveOffset: {x: 0, y: 2, z: 0}
 --- !u!1 &54243859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,7 +1679,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 20
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
@@ -3511,6 +3511,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
+  maxTiltAngle: 10
+  tiltSpeedMultiplier: 25
+  tiltSmoothSpeed: 5
+  minDragSpeedForTilt: 0.1
 --- !u!1 &2035156138 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c6b74de7d7505de4997e5eb441dd862a, type: 3}

@@ -62,6 +62,7 @@ public class SnapManager : MonoBehaviour
             obj.transform.position = new Vector3(closestAnchor.transform.position.x, 
                                                  closestAnchor.transform.position.y, 
                                                  obj.transform.position.z);
+            obj.transform.rotation = Quaternion.identity;
         }
     }
 }
