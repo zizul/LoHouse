@@ -900,7 +900,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2558897346379015805, guid: 7f83e64261d4b2841a62997b3f6b85dc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2558897346379015805, guid: 7f83e64261d4b2841a62997b3f6b85dc, type: 3}
+      propertyPath: m_TagString
+      value: Draggable
       objectReference: {fileID: 0}
     - target: {fileID: 2787344485986342554, guid: 7f83e64261d4b2841a62997b3f6b85dc, type: 3}
       propertyPath: m_LocalPosition.x
