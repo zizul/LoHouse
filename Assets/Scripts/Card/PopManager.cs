@@ -1,7 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using System.Linq;
-using static SelectionManager;
 using UnityEngine.Events;
 using DG.Tweening;
 
@@ -51,16 +48,14 @@ public class PopManager : MonoBehaviour
             card.transform.DOMove(card.transform.position + popMoveOffset, popSpeed);
             card.transform.DOLocalRotateQuaternion(Quaternion.identity, popSpeed);
 
-            //GameObject.FindGameObjectWithTag("DragHandler").GetComponent<DragHandler>().RecalculateOffset(card.transform.position + popMoveOffset);
-            //DragHandler.offset = 0;
+            card.CleanObjectsInInteraction();
 
-            //card.Scale(targetScale, popSpeed);
-            //card.MovePosition(popMoveOffset, popSpeed);
         }
         else if (card != null && !card.IsInHand())
         {
             card.BringToFront();
             card.transform.DOScale(targetScale, popSpeed);
+            card.CleanObjectsInInteraction();
         }
     }
 

@@ -60,9 +60,18 @@ public class SnapManager : MonoBehaviour
         if (closestAnchor != null && closestDistance <= snapDistance) // Mo¿esz dostosowaæ próg bliskoœci
         {
             obj.transform.position = new Vector3(closestAnchor.transform.position.x, 
-                                                 closestAnchor.transform.position.y, 
-                                                 obj.transform.position.z);
+                                                 closestAnchor.transform.position.y,
+                                                 closestAnchor.transform.position.z/*obj.transform.position.z*/);
             obj.transform.rotation = Quaternion.identity;
+
+            CardBehaviour cardBehaviour = obj.GetComponent<CardBehaviour>();
+            if (cardBehaviour != null)
+            {
+                cardBehaviour.IsOtherCardNearby(Vector3.left);
+                cardBehaviour.IsOtherCardNearby(Vector3.right);
+                cardBehaviour.ToggleShaders(false);
+                cardBehaviour.ToggleShadersForObjectsInInteraction(true);
+            }
         }
     }
 }

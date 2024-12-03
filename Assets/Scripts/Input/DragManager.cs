@@ -50,7 +50,7 @@ public class DragHandler : MonoBehaviour
 
     void OnInputMove(Vector3 screenPosition)
     {
-        Debug.Log($"OnInputMove {isDragging} {selectedObject != null}");
+        //Debug.Log($"OnInputMove {isDragging} {selectedObject != null}");
         if (isDragging && selectedObject != null && startMousePosition != Input.mousePosition)
         {
             // Calculate drag velocity
