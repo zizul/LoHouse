@@ -12,7 +12,9 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ENABLEENCHANTED_ON
   - _ENABLEFROZEN_ON
+  - _ENABLEPOISON_ON
   - _ENABLESHARPEN_ON
   - _ENABLESHINE_ON
   - _ENABLESINEGLOW_ON
@@ -192,7 +194,7 @@ Material:
     - _EnableDirectionalAlphaFade: 0
     - _EnableDirectionalDistortion: 0
     - _EnableDirectionalGlowFade: 0
-    - _EnableEnchanted: 0
+    - _EnableEnchanted: 1
     - _EnableExternalAlpha: 0
     - _EnableFlame: 0
     - _EnableFrozen: 1.1
@@ -212,7 +214,7 @@ Material:
     - _EnablePingPongGlow: 0
     - _EnablePixelOutline: 0
     - _EnablePixelate: 0
-    - _EnablePoison: 0
+    - _EnablePoison: 1.1
     - _EnableRainbow: 0
     - _EnableRecolorRGB: 0
     - _EnableRecolorRGBYCP: 0
@@ -222,8 +224,8 @@ Material:
     - _EnableSharpen: 1
     - _EnableShiftHue: 0
     - _EnableShifting: 0
-    - _EnableShine: 1
-    - _EnableSineGlow: 1
+    - _EnableShine: 1.1
+    - _EnableSineGlow: 1.1
     - _EnableSineMove: 0
     - _EnableSineRotate: 0
     - _EnableSineScale: 0
@@ -247,7 +249,7 @@ Material:
     - _EnableWorldTiling: 0
     - _EnchantedBrightness: 1
     - _EnchantedContrast: 0.5
-    - _EnchantedFade: 1
+    - _EnchantedFade: 0
     - _EnchantedLerpToggle: 0
     - _EnchantedRainbowDensity: 0.5
     - _EnchantedRainbowSaturation: 0.8
@@ -329,7 +331,7 @@ Material:
     - _PixelatePixelsPerUnit: 100
     - _PixelsPerUnit: 100
     - _PoisonDensity: 3
-    - _PoisonFade: 1
+    - _PoisonFade: 0
     - _PoisonNoiseBrightness: 2
     - _PoisonRecolorFactor: 0.5
     - _PoisonShiftSpeed: 0.2

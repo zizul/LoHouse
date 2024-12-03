@@ -12,7 +12,7 @@ public class CardBehaviour : MonoBehaviour
     private Coroutine scaleCoroutine;
     private Coroutine moveCoroutine;
 
-    [SerializeField] public List<GameObject> objectsInInteraction;
+    [SerializeField] public Dictionary<Vector3, GameObject> objectsInInteraction;
 
     private void Start()
     {
@@ -20,6 +20,7 @@ public class CardBehaviour : MonoBehaviour
         //SelectionManager.ObjectSelectedEvent += ScaleUp();
 
         originalScale = transform.localScale;
+        objectsInInteraction = new Dictionary<Vector3, GameObject>();
     }
 
     public void SetSpriteSortingOrder(int order)
@@ -70,18 +71,20 @@ public class CardBehaviour : MonoBehaviour
         {
             if (!ReferenceEquals(col.gameObject, this.gameObject) && col.GetComponent<CardBehaviour>() != null)
             {
-                objectsInInteraction.Add(col.gameObject);
+                objectsInInteraction.Add(direction, col.gameObject);
             }
         }
     }
 
     public void ToggleShadersForObjectsInInteraction(bool value)
     {
-        foreach (var item in objectsInInteraction)
+        foreach (var obj in objectsInInteraction)
         {
+            var item = obj.Value;
+            var direction = obj.Key;
             if (item.GetComponent<CardBehaviour>() != null)
             {
-                if (item.transform.position.x < transform.position.x)
+                if (direction == Vector3.left)
                 {
                     SpriteRenderer[] spriteRenderers = item.GetComponentsInChildren<SpriteRenderer>();
                     foreach (var spriteRenderer in spriteRenderers)
@@ -90,7 +93,7 @@ public class CardBehaviour : MonoBehaviour
                         material.SetFloat("_SineGlowFade", value ? 1 : 0);
                     }
                 }
-                else
+                else if (direction == Vector3.right)
                 {
                     SpriteRenderer[] spriteRenderers = item.GetComponentsInChildren<SpriteRenderer>();
                     foreach (var spriteRenderer in spriteRenderers)
@@ -98,6 +101,24 @@ public class CardBehaviour : MonoBehaviour
                         var material = spriteRenderer.material;
                         material.SetFloat("_SharpenFade", value ? 1 : 0);
                         material.SetFloat("_FrozenFade", value ? 1 : 0);
+                    }
+                }
+                else if (direction == Vector3.up)
+                {
+                    SpriteRenderer[] spriteRenderers = item.GetComponentsInChildren<SpriteRenderer>();
+                    foreach (var spriteRenderer in spriteRenderers)
+                    {
+                        var material = spriteRenderer.material;
+                        material.SetFloat("_EnchantedFade", value ? 1 : 0);
+                    }
+                }
+                else if (direction == Vector3.down)
+                {
+                    SpriteRenderer[] spriteRenderers = item.GetComponentsInChildren<SpriteRenderer>();
+                    foreach (var spriteRenderer in spriteRenderers)
+                    {
+                        var material = spriteRenderer.material;
+                        material.SetFloat("_PoisonFade", value ? 1 : 0);
                     }
                 }
             }
@@ -114,6 +135,8 @@ public class CardBehaviour : MonoBehaviour
             material.SetFloat("_FrozenFade", value ? 1 : 0);
             material.SetFloat("_SineGlowFade", value ? 1 : 0);
             material.SetFloat("_SharpenFade", value ? 1 : 0);
+            material.SetFloat("_PoisonFade", value ? 1 : 0);
+            material.SetFloat("_EnchantedFade", value ? 1 : 0);
         }
     }
 

@@ -69,6 +69,8 @@ public class SnapManager : MonoBehaviour
             {
                 cardBehaviour.IsOtherCardNearby(Vector3.left);
                 cardBehaviour.IsOtherCardNearby(Vector3.right);
+                cardBehaviour.IsOtherCardNearby(Vector3.up);
+                cardBehaviour.IsOtherCardNearby(Vector3.down);
                 cardBehaviour.ToggleShaders(false);
                 cardBehaviour.ToggleShadersForObjectsInInteraction(true);
             }
