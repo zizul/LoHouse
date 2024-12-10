@@ -28,6 +28,13 @@ public class PopManager : MonoBehaviour
 
     void PopSelectedObject(GameObject obj)
     {
+        CardBehaviour card = obj.GetComponent<CardBehaviour>();
+        if (card != null && card.IsDetailed())
+        {
+            // do not pop in details
+            return;
+        }
+
         selectedObject = obj;
         originalScale = selectedObject.transform.localScale;
 
@@ -37,7 +44,6 @@ public class PopManager : MonoBehaviour
             originalScale.z * popScale.z
         );
 
-        CardBehaviour card = obj.GetComponent<CardBehaviour>();
         if (card != null && card.IsInHand())
         {
             Debug.Log($"PopSelectedObject {selectedObject.name} {selectedObject.transform.localPosition}");
@@ -49,6 +55,7 @@ public class PopManager : MonoBehaviour
             card.transform.DOLocalRotateQuaternion(Quaternion.identity, popSpeed);
 
             card.CleanObjectsInInteraction();
+            card.TogglePopShaders(true);
 
         }
         else if (card != null && !card.IsInHand())
@@ -56,6 +63,7 @@ public class PopManager : MonoBehaviour
             card.BringToFront();
             card.transform.DOScale(targetScale, popSpeed);
             card.CleanObjectsInInteraction();
+            card.TogglePopShaders(true);
         }
     }
 

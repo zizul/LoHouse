@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,6 +9,10 @@ public class CardBehaviour : MonoBehaviour
     public Vector3 originalScale;
     public Quaternion currentRotation;
     public float albumCardDistance = 2;
+    private Vector3 albumPosition ;
+    private Quaternion albumRotation;
+    private int siblingIndex;
+    private int previousSortingOrder = -1;
 
     private Coroutine scaleCoroutine;
     private Coroutine moveCoroutine;
@@ -25,7 +30,16 @@ public class CardBehaviour : MonoBehaviour
 
     public void SetSpriteSortingOrder(int order)
     {
-        sortingOrder = order;
+        Debug.Log($"SetSpriteSortingOrder {order}");
+        if (previousSortingOrder == -1)
+        {
+            previousSortingOrder = order;
+        }
+        else
+        {
+            previousSortingOrder = GetComponentInChildren<SpriteRenderer>().sortingOrder;
+        }
+        
         GetComponentsInChildren<SpriteRenderer>().ToList().ForEach(x => x.sortingOrder = order);
     }
 
@@ -39,6 +53,10 @@ public class CardBehaviour : MonoBehaviour
     {
         return transform.parent.CompareTag("Hand");
     }
+    public bool IsDetailed()
+    {
+        return transform.parent.CompareTag("CardDetails");
+    }
 
     public void BringToFront()
     {
@@ -47,7 +65,8 @@ public class CardBehaviour : MonoBehaviour
 
     public void ResetSortingOrder()
     {
-        GetComponentsInChildren<SpriteRenderer>().ToList().ForEach(x => x.sortingOrder = sortingOrder);
+        Debug.Log($"ResetSortingOrder {previousSortingOrder}");
+        GetComponentsInChildren<SpriteRenderer>().ToList().ForEach(x => x.sortingOrder = previousSortingOrder);
     }
 
     private void OnDrawGizmos()
@@ -125,6 +144,20 @@ public class CardBehaviour : MonoBehaviour
         }
     }
 
+    public void TogglePopShaders(bool value)
+    {
+        SpriteRenderer[] spriteRenderers = this.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var spriteRenderer in spriteRenderers)
+        {
+            var material = spriteRenderer.material;
+            material.SetFloat("_SineScaleFrequency", value ? 3 : 0);
+            if (spriteRenderer.gameObject.name == "ramka")
+            {
+                material.SetFloat("_ShineFade", value ? 1 : 0);
+            }
+        }
+    }
+
     public void ToggleShaders(bool value)
     {
         SpriteRenderer[] spriteRenderers = this.GetComponentsInChildren<SpriteRenderer>();
@@ -137,6 +170,7 @@ public class CardBehaviour : MonoBehaviour
             material.SetFloat("_SharpenFade", value ? 1 : 0);
             material.SetFloat("_PoisonFade", value ? 1 : 0);
             material.SetFloat("_EnchantedFade", value ? 1 : 0);
+            material.SetFloat("_SineScaleFrequency", value ? 3 : 0);
         }
     }
 
@@ -145,5 +179,44 @@ public class CardBehaviour : MonoBehaviour
         ToggleShadersForObjectsInInteraction(false);
         ToggleShaders(false);
         objectsInInteraction.Clear();
+    }
+
+    public void EnterDetailState(float scale, Vector3 detailPosition, Transform parent)
+    {
+        siblingIndex = transform.GetSiblingIndex();
+        albumPosition = transform.position;
+        albumRotation = transform.rotation;
+        SetSpriteSortingOrder(100);
+
+        Debug.Log($"EnterDetailState albumPosition {albumPosition}");
+        transform.DORotateQuaternion(Quaternion.identity, 0.2f);
+        transform.DOScale(scale, 0.2f);
+        transform.DOMove(detailPosition, 0.2f);
+        transform.parent = parent;
+    }
+
+    public void ExitDetailState(Transform parent)
+    {
+        Debug.Log($"ExitDetailState albumPosition {albumPosition}.");
+
+        ResetSortingOrder();
+        transform.DORotateQuaternion(albumRotation, 0.2f);
+        transform.DOMove(albumPosition, 0.2f).onComplete = () => { 
+            Debug.Log($"ExitDetailState DOMove complete {albumPosition}."); 
+            transform.parent = parent;
+            transform.SetSiblingIndex(siblingIndex);
+            ;
+        };
+        transform.DOScale(originalScale, 0.2f);
+    }
+
+    public void EnterAlbumAnchoredState(Vector3 anchoredPosition)
+    {
+        albumPosition = anchoredPosition;
+
+        Debug.Log($"EnterAlbumAnchoredState albumPosition {albumPosition}");
+
+        transform.position = anchoredPosition;
+        transform.rotation = Quaternion.identity;
     }
 }

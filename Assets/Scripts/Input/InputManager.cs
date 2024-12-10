@@ -16,6 +16,10 @@ public class InputManager : MonoBehaviour
     public static event KeyInput KeyDownEvent;
     public static event KeyInput KeyUpEvent;
 
+    public static event OnInputDown InputDownRightEvent;
+    public static event OnInputUp InputUpRightEvent;
+    public static event OnInputMove InputMoveRightEvent;
+
     private Camera cam;
 
     void Start()
@@ -67,7 +71,7 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("InputDownEvent");
+            //Debug.Log("InputDownEvent");
             Vector3 pos = Input.mousePosition;
             //pos.z = cam.WorldToScreenPoint(Vector3.zero).z;
             InputDownEvent?.Invoke(pos);
@@ -83,8 +87,30 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log("InputUpEvent");
+            //Debug.Log("InputUpEvent");
             InputUpEvent?.Invoke();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            //Debug.Log("InputDownEvent right");
+            Vector3 pos = Input.mousePosition;
+            //pos.z = cam.WorldToScreenPoint(Vector3.zero).z;
+            InputDownRightEvent?.Invoke(pos);
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            Vector3 pos = Input.mousePosition;
+            //pos.z = cam.WorldToScreenPoint(Vector3.zero).z;
+            InputMoveRightEvent?.Invoke(pos);
+            //Debug.Log("InputMoveEvent");
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            //Debug.Log("InputUpEvent right");
+            InputUpRightEvent?.Invoke();
         }
     }
 

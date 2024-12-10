@@ -57,10 +57,20 @@ public class DragHandler : MonoBehaviour
             Vector2 dragDelta = (Vector2)Input.mousePosition - (Vector2)lastMousePosition;
             float dragSpeed = dragDelta.magnitude;
 
-            // Move the card
-            selectedObject.transform.parent = GameObject.Find("Cards").transform;
+            CardBehaviour card = selectedObject.GetComponent<CardBehaviour>();
+
+            if (card != null && card.IsInHand())
+            {
+                selectedObject.transform.parent = GameObject.Find("Cards").transform;
+            }
+
             Vector3 worldPos = cam.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, cam.WorldToScreenPoint(selectedObject.transform.position).z)) + offset;
-            selectedObject.transform.position = worldPos;
+            
+            if (card != null && !card.IsDetailed())
+            {
+                // Move the card
+                selectedObject.transform.position = worldPos;
+            }
 
             // Tilt logic with parameterized settings
             if (dragSpeed > minDragSpeedForTilt)

@@ -152,10 +152,10 @@ public class SpriteCardSpawner : MonoBehaviour
 
             Sprite cardSprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
 
-            CardBehaviour bardBehaviour = card.GetComponent<CardBehaviour>();
-            if (card != null)
+            CardBehaviour cardBehaviour = card.GetComponent<CardBehaviour>();
+            if (cardBehaviour != null)
             {
-                bardBehaviour.SetCardFrontSprite(cardSprite);
+                cardBehaviour.SetCardFrontSprite(cardSprite);
             }
         }
         catch (Exception e)
