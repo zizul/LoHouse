@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShaderUltimateMaterial
+  m_Name: ShaderUltimateFrameMaterial
   m_Shader: {fileID: 4800000, guid: 0803c241834332942abfcbd27c498b46, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -18,6 +18,7 @@ Material:
   - _ENABLESHARPEN_ON
   - _ENABLESHINE_ON
   - _ENABLESINEGLOW_ON
+  - _ENABLESINESCALE_ON
   - _SHADERFADING_NONE
   - _SHADERSPACE_UV
   - _TEXTURELAYER1SHEETTOGGLE_ON
@@ -224,11 +225,11 @@ Material:
     - _EnableSharpen: 1
     - _EnableShiftHue: 0
     - _EnableShifting: 0
-    - _EnableShine: 1.1
+    - _EnableShine: 1
     - _EnableSineGlow: 1.1
     - _EnableSineMove: 0
     - _EnableSineRotate: 0
-    - _EnableSineScale: 0
+    - _EnableSineScale: 1
     - _EnableSmoke: 0
     - _EnableSmoothPixelArt: 0
     - _EnableSourceAlphaDissolve: 0
@@ -366,7 +367,7 @@ Material:
     - _ShiftingSaturation: 0.8
     - _ShiftingSpeed: 0.5
     - _ShineContrast: 2
-    - _ShineFade: 1
+    - _ShineFade: 0
     - _ShineFrequency: 0.3
     - _ShineMaskToggle: 0
     - _ShineRotation: 30
@@ -384,7 +385,7 @@ Material:
     - _SineRotateAngle: 15
     - _SineRotateFade: 1
     - _SineRotateFrequency: 1
-    - _SineScaleFrequency: 2
+    - _SineScaleFrequency: 0
     - _SmokeAlpha: 1
     - _SmokeDarkEdge: 1
     - _SmokeNoiseFactor: 0.4
@@ -610,7 +611,7 @@ Material:
     - _UVDistortTo: {r: 0.02, g: 0.02, b: 0, a: 0}
     - _UVRotatePivot: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _UVScalePivot: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _UVScaleScale: {r: 1, g: 1, b: 0, a: 0}
+    - _UVScaleScale: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _UVScrollSpeed: {r: 0.2, g: 0, b: 0, a: 0}
     - _WorldTilingOffset: {r: 0, g: 0, b: 0, a: 0}
     - _WorldTilingScale: {r: 1, g: 1, b: 0, a: 0}
