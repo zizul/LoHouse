@@ -19,7 +19,7 @@ public class CardBehaviour : MonoBehaviour
 
     [SerializeField] public Dictionary<Vector3, GameObject> objectsInInteraction;
 
-    private void Start()
+    private void Awake()
     {
         //SelectionManager.ObjectSelectedEvent += ScaleUp();
         //SelectionManager.ObjectSelectedEvent += ScaleUp();
