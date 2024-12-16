@@ -31,7 +31,7 @@ public class SnapManager : MonoBehaviour
         if (selectedObject != null)
         {
             CardBehaviour card = selectedObject.GetComponent<CardBehaviour>();
-            if (card != null && !card.IsInHand())
+            if (card != null && !card.IsInHand() && !card.IsInDialog())
             {
                 SnapToClosestAnchor(selectedObject);
             }
@@ -62,13 +62,16 @@ public class SnapManager : MonoBehaviour
             CardBehaviour cardBehaviour = obj.GetComponent<CardBehaviour>();
             if (cardBehaviour != null)
             {
-                cardBehaviour.EnterAlbumAnchoredState(closestAnchor.transform.position);
+
                 cardBehaviour.IsOtherCardNearby(Vector3.left);
                 cardBehaviour.IsOtherCardNearby(Vector3.right);
                 cardBehaviour.IsOtherCardNearby(Vector3.up);
                 cardBehaviour.IsOtherCardNearby(Vector3.down);
+
                 cardBehaviour.ToggleShaders(false);
                 cardBehaviour.ToggleShadersForObjectsInInteraction(true);
+
+                cardBehaviour.EnterAlbumAnchoredState(closestAnchor.transform.position);
             }
         }
     }

@@ -6,10 +6,10 @@ using UnityEngine;
 public class CardBehaviour : MonoBehaviour
 {
     [SerializeField] private int sortingOrder;
-    public Vector3 originalScale;
+    public Vector3 originalScale { get; set; }
     public Quaternion currentRotation;
     public float albumCardDistance = 2;
-    private Vector3 albumPosition ;
+    private Vector3 albumPosition;
     private Quaternion albumRotation;
     private int siblingIndex;
     private int previousSortingOrder = -1;
@@ -23,8 +23,10 @@ public class CardBehaviour : MonoBehaviour
     {
         //SelectionManager.ObjectSelectedEvent += ScaleUp();
         //SelectionManager.ObjectSelectedEvent += ScaleUp();
+        
+        originalScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
-        originalScale = transform.localScale;
+        Debug.Log($"CardBehaviour Awake {transform.parent}/{gameObject.name} {originalScale}");
         objectsInInteraction = new Dictionary<Vector3, GameObject>();
     }
 
@@ -39,7 +41,7 @@ public class CardBehaviour : MonoBehaviour
         {
             previousSortingOrder = GetComponentInChildren<SpriteRenderer>().sortingOrder;
         }
-        
+
         GetComponentsInChildren<SpriteRenderer>().ToList().ForEach(x => x.sortingOrder = order);
     }
 
@@ -53,9 +55,20 @@ public class CardBehaviour : MonoBehaviour
     {
         return transform.parent.CompareTag("Hand");
     }
+
     public bool IsDetailed()
     {
         return transform.parent.CompareTag("CardDetails");
+    }
+
+    public bool IsInAlbum()
+    {
+        return transform.parent.CompareTag("Album");
+    }
+
+    public bool IsInDialog()
+    {
+        return transform.parent.CompareTag("Dialog");
     }
 
     public void BringToFront()
@@ -201,8 +214,8 @@ public class CardBehaviour : MonoBehaviour
 
         ResetSortingOrder();
         transform.DORotateQuaternion(albumRotation, 0.2f);
-        transform.DOMove(albumPosition, 0.2f).onComplete = () => { 
-            Debug.Log($"ExitDetailState DOMove complete {albumPosition}."); 
+        transform.DOMove(albumPosition, 0.2f).onComplete = () => {
+            Debug.Log($"ExitDetailState DOMove complete {albumPosition}.");
             transform.parent = parent;
             transform.SetSiblingIndex(siblingIndex);
             ;
@@ -218,5 +231,20 @@ public class CardBehaviour : MonoBehaviour
 
         transform.position = anchoredPosition;
         transform.rotation = Quaternion.identity;
+
+        GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneManager>().ShowCardDialogView(this.gameObject);
+    }
+
+    public void EnterDialogState()
+    {
+        transform.localPosition = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        transform.localScale = new Vector3(85, 85, 85);
+        SetSpriteSortingOrder(100);
+    }
+
+    public void ExitDialogState()
+    {
+        ResetSortingOrder();
     }
 }

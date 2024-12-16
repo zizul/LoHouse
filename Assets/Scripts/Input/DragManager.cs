@@ -66,7 +66,7 @@ public class DragHandler : MonoBehaviour
 
             Vector3 worldPos = cam.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, cam.WorldToScreenPoint(selectedObject.transform.position).z)) + offset;
             
-            if (card != null && !card.IsDetailed())
+            if (card != null && (card.IsInAlbum() || card.IsInHand()))
             {
                 // Move the card
                 selectedObject.transform.position = worldPos;
@@ -122,6 +122,7 @@ public class DragHandler : MonoBehaviour
 
         if (selectedObject.transform.parent.name == "Hand")
         {
+            // offset after scaling up image on click in hand
             offset += new Vector3(0, 3, 0);
         }
 
