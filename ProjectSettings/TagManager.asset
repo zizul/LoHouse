@@ -12,6 +12,7 @@ TagManager:
   - SceneManager
   - Album
   - Dialog
+  - CardSpawner
   layers:
   - Default
   - TransparentFX

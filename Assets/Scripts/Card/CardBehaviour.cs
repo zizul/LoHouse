@@ -247,4 +247,30 @@ public class CardBehaviour : MonoBehaviour
     {
         ResetSortingOrder();
     }
+
+    void OnDestroy()
+    {
+        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            if (spriteRenderer.material != null)
+            {
+                Destroy(spriteRenderer.material);
+            }
+        }
+
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer renderer in renderers)
+        {
+            foreach (Material mat in renderer.materials)
+            {
+                if (mat != null)
+                {
+                    Destroy(mat);
+                }
+            }
+        }
+    }
 }

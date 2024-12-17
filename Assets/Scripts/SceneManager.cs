@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SceneManager : MonoBehaviour
@@ -21,6 +22,8 @@ public class SceneManager : MonoBehaviour
 
     void Start()
     {
+        dialogCard = GameObject.FindGameObjectWithTag("CardSpawner").GetComponent<SpriteCardSpawner>().SpawnCard(null, "DialogCardGameObject");
+        dialogCard.transform.parent = dialogCardHolder.transform;
         cam = Camera.main;
     }
 
@@ -92,26 +95,31 @@ public class SceneManager : MonoBehaviour
     {
         if (dialogPanel.activeSelf == false)
         {
-            dialogCard = Instantiate(cardGO, dialogCardHolder.transform);
+            //dialogCard = Instantiate(cardGO, dialogCardHolder.transform);
 
             //CardBehaviour cardBehaviour = dialogCard.GetComponent<CardBehaviour>();
             //if (cardBehaviour != null)
             //{
             //    cardBehaviour.EnterDialogState();
             //}
+            SpriteRenderer spriteRenderer = cardGO.GetComponentInChildren<SpriteRenderer>();
 
             CardBehaviour dialogCardBehaviour = dialogCard.GetComponent<CardBehaviour>();
             if (dialogCardBehaviour != null)
             {
+                dialogCardBehaviour.SetCardFrontSprite(spriteRenderer.sprite);
                 dialogCardBehaviour.EnterDialogState();
             }
 
-            SpriteRenderer[] spriteRenderers = dialogCard.GetComponentsInChildren<SpriteRenderer>();
+            //SpriteRenderer[] spriteRenderers = dialogCard.GetComponentsInChildren<SpriteRenderer>();
 
-            foreach (SpriteRenderer spriteRenderer in spriteRenderers)
-            {
-                spriteRenderer.material = new Material(spriteRenderer.material); // Kopiujemy materia³
-            }
+            //foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+            //{
+            //    Debug.Log(spriteRenderer.gameObject.name);
+            //    var mat = spriteRenderer.material; 
+            //    spriteRenderer.material = new Material(mat); // Kopiujemy materia³
+            //    Destroy(mat);
+            //}
 
             dialogPanel.SetActive(true);
             dialogPanel.transform.DOLocalMoveY(-366, 0.5f).SetEase(Ease.InBack)/*.onComplete = () => Instantiate(cardGO, dialogCardHolder.transform)*/;
@@ -127,8 +135,16 @@ public class SceneManager : MonoBehaviour
             dialogPanel.transform.DOLocalMoveY(-681, 0.5f).SetEase(Ease.InBack).onComplete = () =>
             {
                 dialogPanel.SetActive(false);
-                Destroy(dialogCard);
-                dialogCard = null;
+
+                //SpriteRenderer[] spriteRenderers = dialogCard.GetComponentsInChildren<SpriteRenderer>();
+
+                //foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+                //{
+                //    Destroy(spriteRenderer.material); 
+                //}
+
+                //Destroy(dialogCard);
+                //dialogCard = null;
             };
         }
     }

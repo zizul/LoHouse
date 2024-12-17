@@ -58,7 +58,8 @@ public class SpriteCardSpawner : MonoBehaviour
     {
         if (key == KeyCode.W && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
-            SpawnCard();
+            string textureFile = GetNextTexture();
+            SpawnCard(GetSprite(textureFile), GenerateCardName(textureFile));
         }
     }
 
@@ -78,18 +79,18 @@ public class SpriteCardSpawner : MonoBehaviour
         return selectedTexture;
     }
 
-    void SpawnCard()
+    public GameObject SpawnCard(Sprite cardSprite, string name)
     {
         if (cardPrefab == null)
         {
             Debug.LogWarning("Card prefab is not assigned.");
-            return;
+            return null;
         }
 
         if (allTextureFiles.Count == 0)
         {
             Debug.LogError("No texture files found in the specified directory.");
-            return;
+            return null;
         }
 
         // Spawn position and rotation
@@ -107,12 +108,13 @@ public class SpriteCardSpawner : MonoBehaviour
         }
 
         // Apply texture
-        ApplyTextureToCard(newCard);
+        ApplyTextureToCard(newCard, cardSprite);
 
         // Set card name for easier identification
-        newCard.name = GenerateCardName(newCard);
+        newCard.name = name;
 
         Debug.Log($"Spawned card in hand: (Current count: {parentTransform.childCount})");
+        return newCard;
     }
 
     void SetCustomTagAndLayer(GameObject card)
@@ -135,13 +137,24 @@ public class SpriteCardSpawner : MonoBehaviour
         }
     }
 
-    void ApplyTextureToCard(GameObject card)
+    void ApplyTextureToCard(GameObject card, Sprite cardSprite)
     {
-        string textureFile = GetNextTexture();
+        if (cardSprite != null)
+        {
+            CardBehaviour cardBehaviour = card.GetComponent<CardBehaviour>();
+            if (cardBehaviour != null)
+            {
+                cardBehaviour.SetCardFrontSprite(cardSprite);
+            }
+        }
+    }
+
+    private Sprite GetSprite(string textureFile)
+    {
         if (!File.Exists(textureFile))
         {
             Debug.LogWarning("Texture file does not exist.");
-            return;
+            return null;
         }
 
         try
@@ -151,22 +164,17 @@ public class SpriteCardSpawner : MonoBehaviour
             texture.LoadImage(fileData);
 
             Sprite cardSprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-
-            CardBehaviour cardBehaviour = card.GetComponent<CardBehaviour>();
-            if (cardBehaviour != null)
-            {
-                cardBehaviour.SetCardFrontSprite(cardSprite);
-            }
+            return cardSprite;
         }
         catch (Exception e)
         {
-            Debug.LogError($"Failed to apply texture to card: {e.Message}");
+            Debug.LogError($"Failed to load texture to sprite: {e.Message}");
+            return null;
         }
     }
 
-    string GenerateCardName(GameObject card)
+    string GenerateCardName(string textureFile)
     {
-        string textureFile = GetNextTexture();
         return File.Exists(textureFile)
             ? $"Card_{Path.GetFileNameWithoutExtension(textureFile)}"
             : "Card_Unknown";
