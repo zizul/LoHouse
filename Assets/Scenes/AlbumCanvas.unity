@@ -753,7 +753,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 101
   m_TargetDisplay: 0
 --- !u!114 &537498972
 MonoBehaviour:
@@ -2001,14 +2001,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Indiana Bones used to be the hottest archaeologist in the game, but one
-    day he stumbled into a tomb with a big sign at the entrance that basically screamed,
-    \u201CDo NOT touch the artifacts!\u201D \n\nSo, what did he do? Grabbed a torch
-    and started poking around like it was a yard sale. Next thing you know \u2013
-    bam! He\u2019s cursed into a skeleton. \n\nBut hey, the man\u2019s got style
-    \u2013 the hat, the coat, and that ever-burning torch? Iconic. Looks like he\u2019s
-    hunting treasure, but truth is, he\u2019s been wandering around for three days
-    just trying to find the exit."
+  m_text: "Indiana\u015B B\xF3nes used to be the hottest archaeologist in the game,
+    but one day he stumbled into a tomb with a big sign at the entrance that basically
+    screamed, \u201CDo NOT touch the artifacts!\u201D \n\nSo, what did he do? Grabbed
+    a torch and started poking around like it was a yard sale. Next thing you know
+    \u2013 bam! He\u2019s cursed into a skeleton. \n\nBut hey, the man\u2019s got
+    style \u2013 the hat, the coat, and that ever-burning torch? Iconic. Looks like
+    he\u2019s hunting treasure, but truth is, he\u2019s been wandering around for
+    three days just trying to find the exit."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f558339ef5e2819468143ce2564768ad, type: 2}
   m_sharedMaterial: {fileID: -9105708989741194141, guid: f558339ef5e2819468143ce2564768ad, type: 2}
@@ -2108,7 +2108,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 101
   m_TargetDisplay: 0
 --- !u!1 &847425236
 GameObject:
